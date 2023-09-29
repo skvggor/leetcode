@@ -1,3 +1,5 @@
+// https://leetcode.com/submissions/detail/997925322/
+
 const findMedianSortedArrays = (nums1, nums2) => {
   if (!(nums1.length >= 0 && nums1.length <= 1000)
     && !(nums2.length >= 0 && nums2.length <= 1000)) {

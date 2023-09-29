@@ -1,3 +1,5 @@
+// https://leetcode.com/submissions/detail/1057649032/
+
 pub fn reverse(x: i32) -> i32 {
     if x == 0 {
         return 0;
@@ -21,6 +23,7 @@ pub fn reverse(x: i32) -> i32 {
 }
 
 fn main() {
+    // Tests
     println!("{}", reverse(123));
     println!("{}", reverse(-123));
     println!("{}", reverse(120));
