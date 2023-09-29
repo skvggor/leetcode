@@ -1,53 +1,46 @@
 pub fn is_valid(s: String) -> bool {
-    let mut results: Vec<bool> = Vec::new();
+    let input = s.chars();
+    let mut results: Vec<char> = Vec::new();
 
-    for item in s.chars().collect::<Vec<char>>().windows(2) {
-        let current = item[0];
-        let next = item[1];
+    let open_brackets = vec!['[', '{', '('];
+    let close_brackets = vec![']', '}', ')'];
 
-        println!("Current {:?}, Next {:?}", current, next);
-
-        // if current.to_string() == "(" && next.to_string() == ")" {
-        //     results.push(true);
-        // }
-
-        if current.to_string() == "(" && next.to_string() != ")" {
-            results.push(false);
-        }
-
-        // if current.to_string() == "{" && next.to_string() == "}" {
-        //     results.push(true);
-        // }
-
-        if current.to_string() == "{" && next.to_string() != "}" {
-            results.push(false);
-        }
-
-        // if current.to_string() == "[" && next.to_string() == "]" {
-        //     results.push(true);
-        // }
-
-        if current.to_string() == "[" && next.to_string() != "]" {
-            results.push(false);
+    fn pair_checker(close_bracket: char) -> char {
+        return match close_bracket {
+            ']' => { '[' }
+            '}' => { '{' }
+            ')' => { '(' }
+            _ => { ' ' }
         }
     }
 
-    println!("RESULT {:?} {:?}", results, results.len());
+    for bracket in input {
+        let curr = bracket;
 
-    results.iter().all(|&x| x)
-    //     true
-    // } else {
-    //     false
-    // }
+        if open_brackets.contains(&curr) {
+            results.insert(0, curr);
+        } else if close_brackets.contains(&curr) {
+            if results.len() > 0 {
+                if results[0] == pair_checker(curr) {
+                    results.remove(0);
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    results.len() == 0
 }
 
 fn main() {
-    println!("FINAL {}", is_valid("()[]{}{}{}{".to_string()));
+    // Tests
+    println!("{:?}", is_valid("}".to_string()));
+    println!("{:?}", is_valid("()".to_string()));
+    println!("{:?}", is_valid("()()[]".to_string()));
+    println!("{:?}", is_valid("()([]".to_string()));
 }
-
-/*
-
-1 3 5
-2 4 6
-
-*/
